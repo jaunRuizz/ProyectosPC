@@ -1,0 +1,7 @@
+Connect-MicrosoftTeams
+Get-Team
+Get-teamchallenge
+Get-teamChalengeuser
+Remove-Team
+Get-Credential
+New-Team 
