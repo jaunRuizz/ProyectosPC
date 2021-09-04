@@ -34,7 +34,7 @@ function Autenticar(){
  function Ver_Equipos(){
     ## Aqui ingresamos el correo universitario con el que esta vinculada la cuenta de Teams
  $usuario= Read-host  "Ingresa tu correo universitario"
- Get-Team  -user $usuario -Archived $False > C:\Users\mcdan\Desktop\Tarea2\scripts\Evidencia.txt
+ Get-Team  -user $usuario  > C:\Users\mcdan\Desktop\Tarea2\scripts\Evidencia.txt
 }
 
 
@@ -54,7 +54,7 @@ New-Team -DisplayName $Name_Equipo -Visibility $Visibilidad -MailNickName $NickN
 #Son equipos de los cuales tu eres propietario ten mucho cuidado al eliminar equipos que creaste
 function Delete_Equipo(){
 $Id = read-host "Ingresa tu id copialo de la linea anterior "
-$op=read-host "Seguro que deseas eliminar el equipo"
+$op=read-host "Seguro que deseas eliminar el equipo [y]si [n]No"
 if ($op -eq "y"){
 Remove-Team -GroupId $Id
 }else{
@@ -99,13 +99,38 @@ Remove-TeamUser -GroupId $Id -User $Correo
 function Agregar_Pic(){
 $Id =read-host "Ingresa el id del equipo"
 $img=read-host Ingresa la ruta donde tienes tu imagen
-Set-TeamPicture -GroupId 00bd98c9-9e4d-4c48-b709-cbe52510f2d1 -ImagePath $img
+Set-TeamPicture -GroupId $Id -ImagePath $img
+}
+
+function Generar_Reporte(){
+$usuario= Read-host  "Ingresa tu correo universitario"
+Get-Team  -user $usuario  > C:\Users\mcdan\Desktop\Tarea2\scripts\Reporte.txt
+$GroupId=Get-content "C:\Users\mcdan\Desktop\Tarea2\scripts\Evidencia.txt"
+$conte=0
+foreach($i in $GroupId){
+$conte++
+}
+$cont=3
+$contador=0
+$c=1
+while($cont -lt $conte-2){
+Get-Teamuser -GroupId $GroupId[$cont].split(" ")[0] > C:\Users\mcdan\Desktop\Tarea2\Reporte-MicrosoftTeams\crreos"$c".txt
+$cont++
+$contador++
+$c++
+}
+
+
+#$s=Get-content "C:\Users\mcdan\Desktop\Tarea2\Reporte-MicrosoftTeams\correos.txt"
+
+
+
 }
 # En este apartado usamos un switch Para desplegar el menu de opciones
 
 Menu
 $opc = Read-Host  Elige una opcion
-while ($opc -lt 7){
+while ($opc -lt 9){
 switch ($opc){
     0 {
     Autenticar
@@ -136,18 +161,23 @@ switch ($opc){
     Lista_ID
     Agregar_Pic
     Menu
+    } 7 {
+    Generar_Reporte
+    } 8 {
+    Disconnect-MicrosoftTeams -Confirm
     } default {
     write-Host "Error 502 (Opcion no valida)"
 }
 }
+Menu
 $opc = Read-Host  Elige una opcion
 }
 
 
 
 
-/**
- * ------------------------------------------------------------------------
- * Este script Fue Elaborado Por Luevano Ruiz Juan Daniel
- * ------------------------------------------------------------------------
- */
+#/**
+#* ------------------------------------------------------------------------
+#* Este script Fue Elaborado Por Luevano Ruiz Juan Daniel
+#* ------------------------------------------------------------------------
+#*/

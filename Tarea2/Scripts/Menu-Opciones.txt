@@ -6,4 +6,5 @@
 [5] Eliminar un usuario
 [6] Cambiar imagen de equipo
 [7] Generar reporte de texto
-[8] Salir 
+[8] Cerrar la secion de Teams En powershell
+[9] Salir 
