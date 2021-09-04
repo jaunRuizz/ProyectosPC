@@ -3,6 +3,7 @@
 [2] Crear Equipos nuevos 
 [3] Eliminar equipos  
 [4] Agregar un usaurio 
-[5] Cambiar imagen de equipo
-[6] Generar reporte de texto
-[7] Salir 
+[5] Eliminar un usuario
+[6] Cambiar imagen de equipo
+[7] Generar reporte de texto
+[8] Salir 

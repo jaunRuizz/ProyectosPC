@@ -1,9 +1,9 @@
 ﻿#                        //*****************************************************************************}
 #                        //                                                                             }
-#                        //       Sticky Password Autofill Engine                                       }
-#                        //       Chromium Log                                                          }
+#                        //                  Sticky Password Autofill Engine                            }
+#                        //                  Chromium Log                                               }
 #                        //                                                                             }
-#                        //       Copyright (C) 2021 Lamantine Software a.s.                            }
+#                        //                  Copyright (C) 2021 Team 063 Software a.s.                 }
 #                        //                                                                             }
 #                        //*****************************************************************************}
 #
@@ -15,23 +15,23 @@
 #//<!--                   Para mas informacion sobre los modulos utilizados en Este script visita las siguientes URL       -->
 
 
-# Esta funcion nos imprime el menu en la linea de comandps las opciones las extrae de un documento txt
+# Esta funcion nos imprime el menu en la linea de comandps las opciones las extrae de un documento txt 
 function Menu(){
-$menu = Get-Content "C:\Users\mcdan\Desktop\Tarea2\Scripts\Menu-Opciones.txt"
+$menu = Get-Content "C:\Users\mcdan\Desktop\Menu-Opciones.txt"
 foreach($i in $menu){Write-Output $i }
 }
 
 
 # Esta funcion es para autenticarnos en la cuenta de Microsoft Teams que deseamos Admistrar
 function Autenticar(){
-# Ingresa las credenciales tu cuenta teams correo UANL y contraseña
+# Ingresa las credenciales tu cuenta teams correo UANL y contraseña 
  $userCredential = Get-Credential
  Connect-MicrosoftTeams -Credential $userCredential
  }
-
-
- # Esta funcion sirve para ver la lista de todos los equipos a los que perteneces si estan o no archivados
- function Ver_Equipos(){
+ 
+ 
+ # Esta funcion sirve para ver la lista de todos los equipos a los que perteneces si estan o no archivados 
+ function Ver_Equipos(){      
     ## Aqui ingresamos el correo universitario con el que esta vinculada la cuenta de Teams
  $usuario= Read-host  "Ingresa tu correo universitario"
  Get-Team  -user $usuario -Archived $False > C:\Users\mcdan\Desktop\Tarea2\scripts\Evidencia.txt
@@ -39,19 +39,19 @@ function Autenticar(){
 
 
 # Esta Funcion nos ayuda a crear equipos dentro de la plataforma Microsoft Teams
-## Se le pasan los parametros de nombre del equipo , la visibilidad y una descripcion sobre el equipo
+## Se le pasan los parametros de nombre del equipo , la visibilidad y una descripcion sobre el equipo 
 function Crear_Equipo(){
 $Name_Equipo=Read-host "Ingresa el nombre del equipo"
 $Visibilidad =Read-Host "ingresa si es privado o publico "
 $NickName =Read-Host "Ingresa el nickname del equipo "
 $Descripcion=Read-Host "ingresa una descripcion sobre el equipo "
 
-New-Team -DisplayName $Name_Equipo -Visibility $Visibilidad -MailNickName $NickName -Description $Descripcion
+New-Team -DisplayName $Name_Equipo -Visibility $Visibilidad -MailNickName $NickName -Description $Descripcion 
 }
 
 
-# Esta funcion nos apoyara a Eliminar Equipos de la plataforma
-#Son equipos de los cuales tu eres propietario ten mucho cuidado al eliminar equipos que creaste
+# Esta funcion nos apoyara a Eliminar Equipos de la plataforma 
+#Son equipos de los cuales tu eres propietario ten mucho cuidado al eliminar equipos que creaste 
 function Delete_Equipo(){
 $Id = read-host "Ingresa tu id copialo de la linea anterior "
 $op=read-host "Seguro que deseas eliminar el equipo"
@@ -78,31 +78,10 @@ $contador++
 $cont++
  }
 }
-# Esta funcion sirve para agregar un usuario a un equipo de teams desde una lista en un txt o manualmente
-function Agregar_Usuario(){
-$Id = read-host "imgresa el id del grupo "
-$correo = read-host "ingresa el correo del usuario"
-Add-TeamUser -GroupId $Id -User $Correo
-}
 
-# Funcion para eliminar un usuario de un equipo
-function Eliminar-User(){
-$Id = read-host "imgresa el id del grupo "
-$correo = read-host "ingresa el correo del usuario"
-$op = read-host "Estas Seguro que Deseas Eliminar un integrante del equipo actual [y]si [n]No"
-if ($op -eq "y"){
-Remove-TeamUser -GroupId $Id -User $Correo
-}
 
-}
-
-function Agregar_Pic(){
-$Id =read-host "Ingresa el id del equipo"
-$img=read-host Ingresa la ruta donde tienes tu imagen
-Set-TeamPicture -GroupId 00bd98c9-9e4d-4c48-b709-cbe52510f2d1 -ImagePath $img
-}
-# En este apartado usamos un switch Para desplegar el menu de opciones
-
+# En este apartado usamos un switch Para desplegar el menu de opciones 
+function script(){
 Menu
 $opc = Read-Host  Elige una opcion
 while ($opc -lt 7){
@@ -110,41 +89,30 @@ switch ($opc){
     0 {
     Autenticar
     Menu
-
+ 
     break
     } 1 {
     Ver_Equipos
     Menu
-
+   
     break
     } 2 {
-    #Crear_Equipo
+    Crear_Equipo
     Menu
     } 3 {
     Lista_ID
     Delete_Equipo
     Menu
-    } 4 {
-    Lista_ID
-    Agregar_Usuario
-    Menu
-    } 5 {
-    Lista_ID
-    Eliminar-User
-    Menu
-    } 6 {
-    Lista_ID
-    Agregar_Pic
-    Menu
     } default {
-    write-Host "Error 502 (Opcion no valida)"
+    write-Host "Error 502 (Opcion no valida)" 
 }
 }
 $opc = Read-Host  Elige una opcion
 }
+}
 
 
-
+script
 
 /**
  * ------------------------------------------------------------------------
